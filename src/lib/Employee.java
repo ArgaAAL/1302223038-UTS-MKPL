@@ -25,11 +25,8 @@ public class Employee {
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 	
-	private String spouseName;
-	private String spouseIdNumber;
-
-	private List<String> childNames;
-	private List<String> childIdNumbers;
+	private Spouse spouse;
+	private List<Child> children;
 	
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, Gender gender) {
 		this.employeeId = employeeId;
@@ -42,10 +39,8 @@ public class Employee {
 		this.dayJoined = dayJoined;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
+		children = new LinkedList<>();
 
-		
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
 	}
 	
 	/**
@@ -88,19 +83,18 @@ public class Employee {
 	}
 	
 	public void setSpouse(String spouseName, String spouseIdNumber) {
-		this.spouseName = spouseName;
-		this.spouseIdNumber = idNumber;
+	    this.spouse = new Spouse(spouseName, spouseIdNumber);
 	}
+
 	
 	public void addChild(String childName, String childIdNumber) {
-		childNames.add(childName);
-		childIdNumbers.add(childIdNumber);
+	    children.add(new Child(childName, childIdNumber));
 	}
-	
+
 	public int getAnnualIncomeTax() {
 		int monthsWorked = getMonthsWorkedThisYear();
 		boolean single = isSingle();
-		int numberOfChildren = childIdNumbers.size();
+		int numberOfChildren = children.size();
 
 		return TaxFunction.calculateTax(
 		    monthlySalary,
@@ -122,8 +116,9 @@ public class Employee {
 	}
 	
 	private boolean isSingle() {
-	    return spouseIdNumber == null || spouseIdNumber.isEmpty();
+	    return spouse == null || spouse.isEmpty();
 	}
+
 
 
 }
