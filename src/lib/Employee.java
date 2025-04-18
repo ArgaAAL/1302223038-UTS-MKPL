@@ -5,6 +5,7 @@ import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class Employee {
 
 	private String employeeId;
@@ -48,31 +49,15 @@ public class Employee {
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
 	 */
 	
-	public void setMonthlySalary(int grade) {
-		int baseSalary = 0;
-		switch (grade) {
-			case 1:
-				baseSalary = 3000000;
-				break;
-			case 2:
-				baseSalary = 5000000;
-				break;
-			case 3:
-				baseSalary = 7000000;
-				break;
-			default:
-				baseSalary = 0;
-		}
+	public void setMonthlySalary(EmployeeGrade grade) {
+	    int baseSalary = grade.getBaseSalary();
 
-		if (isForeigner) {
-			baseSalary *= 1.5;
-		}
+	    if (isForeigner) {
+	        baseSalary *= 1.5;
+	    }
 
-		this.monthlySalary = baseSalary;
+	    this.monthlySalary = baseSalary;
 	}
-
-
-	
 	
 	public void setAnnualDeductible(int deductible) {	
 		this.annualDeductible = deductible;
